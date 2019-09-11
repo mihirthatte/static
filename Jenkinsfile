@@ -20,6 +20,7 @@ pipeline{
         script{
           def status_code = sh returnStdOut: true,
                              script: ' curl -s -o /dev/null -w "%{http_code}" http://jenkins-bucket-mihir.s3-website.us-east-2.amazonaws.com/abc.html'
+          echo "Status code is -- $status_code"
           if (status_code != "200"){
             currentBuild.result = "FAILURE"
           }
