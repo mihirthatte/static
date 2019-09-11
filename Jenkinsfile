@@ -15,5 +15,14 @@ pipeline{
         }
       }
     }
+    stage('Validate S3 has HTML file'){
+      steps{
+        def status_code = sh returnStdOut: true,
+                             script: ' curl -s -o /dev/null -w "%{http_code}" http://jenkins-bucket-mihir.s3-website.us-east-2.amazonaws.com/abc.html'
+        if (staus_code != "200"){
+          exit 1
+        }
+      }
+    }
   }
 }
